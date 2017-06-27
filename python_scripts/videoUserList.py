@@ -37,14 +37,16 @@ len(viewsList)
 len(vidURL)
 
 subscribersCount = set(user.get('title') for userLink in subSoup
-           if x.get('href').startswith('/user'))
+           if userLink.get('href').startswith('/user'))
 
 cleanedUserSubscriber = set(user.get('title') for userLink in userLinkList
-           if x.get('href').startswith('/user'))
+           if userLink.get('href').startswith('/user'))
 
 cleanedUserLinkList = set(user.get('href') for userLink in userLinkList
-           if x.get('href').startswith('/user'))
+           if userLink.get('href').startswith('/user'))
            
+print(cleanedUserLinkList)
+
 
 #loop through user List and generate new link list
 for user in set("userList")
