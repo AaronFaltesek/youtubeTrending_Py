@@ -16,8 +16,20 @@ userSet = set(x.get('href') for x in soup('a')
 #Generate valid url based on rawList
 for user in set(userSet):
 	print("https://www.youtube.com" + user + "/videos")
-	
+#after validation assign list to variable
 userLinkList = set("https://www.youtube.com" + user + "/videos" for user in userSet)
+
+#loop through the list
+for vidURL in set(userLinkList):
+	subHTML = requests.get(vidURL).text
+	subSoup = BeautifulSoup(subHTML, 'html.parser')
+	#get the subscriber tag
+	spans = subSoup.find("span",attrs={"class": "yt-subscription-button-subscriber-count-branded-horizontal subscribed yt-uix-tooltip"})
+	#spit out the subscriber count
+	print(spans.contents)
+
+#	userLinkList = "https://www.youtube.com" + "/user/hyperkingames" + "/videos"
+
 
 #testing subscriber retrieval 
 subHTML = requests.get("https://www.youtube.com/user/hyperkingames/videos").text
@@ -35,28 +47,29 @@ vidURL = subSoup.find_all("div",attrs={"class": "yt-lockup-content"})
 #validate counts match
 len(viewsList)
 len(vidURL)
-
-subscribersCount = set(user.get('title') for userLink in subSoup
-           if userLink.get('href').startswith('/user'))
-
-cleanedUserSubscriber = set(user.get('title') for userLink in userLinkList
-           if userLink.get('href').startswith('/user'))
-
-cleanedUserLinkList = set(user.get('href') for userLink in userLinkList
-           if userLink.get('href').startswith('/user'))
-           
-print(cleanedUserLinkList)
-
-
-#loop through user List and generate new link list
-for user in set("userList")
-	userLinkList = "https://www.youtube.com" + userList([user]) + "/videos"
-
 #
-userLinkList = "https://www.youtube.com" + "/user/hyperkingames" + "/videos"
-htmldocUserPage = requests.get(userLinkList).text
-
-
-
-for user in set("userList")
-	userLinkList = "https://www.youtube.com" + "/user/hyperkingames" + "/videos"
+subscribersCount = set(user.get('title') for userLink in subSoup
+           if x.get('href').startswith('/user'))
+		   
+print(subscribersCount)
+#
+#cleanedUserSubscriber = set(user.get('title') for userLink in userLinkList
+#           if userLink.get('href').startswith('/user'))
+#
+#cleanedUserLinkList = set(user.get('href') for userLink in userLinkList
+#           if userLink.get('href').startswith('/user'))
+#           
+#print(cleanedUserLinkList)
+#
+#
+##loop through user List and generate new link list
+#for user in set("userList")
+#	userLinkList = "https://www.youtube.com" + userList([user]) + "/videos"
+#
+##
+#userLinkList = "https://www.youtube.com" + "/user/hyperkingames" + "/videos"
+#htmldocUserPage = requests.get(userLinkList).text
+#
+#
+#
+#for user in set("userList")
